@@ -22,6 +22,9 @@ class LRUCache {
     }
     
     public void put(int key, int value) {
+        if(capacity <=0) {
+            return;
+        }
         if(cacheMap.containsKey(key)) {
             DoublyNode node = cacheMap.get(key);
             node.value = value;
