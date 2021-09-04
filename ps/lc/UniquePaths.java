@@ -14,14 +14,10 @@ public class UniquePaths {
                                   int previousX, int previousY,
                                   List<String> allPaths) {
         if (x == N || y == N) return;
-        if (x > 0 && previousX == x - 1) {
-            pathSoFar.append("R");
-        }
-        if (y > 0 && previousY == y - 1) {
-            pathSoFar.append("D");
-        }
+        if (x > 0 && previousX == x - 1) pathSoFar.append("R");
+        if (y > 0 && previousY == y - 1) pathSoFar.append("D");
         if (x == N - 1 && y == N - 1) {
-            allPaths.add(new String(pathSoFar.toString()));
+            allPaths.add(pathSoFar.toString());
             return;
         }
         traverseAllPaths(N, x + 1, y, new StringBuilder(pathSoFar), x, y, allPaths);
