@@ -1,5 +1,35 @@
-//https://leetcode.com/problems/3sum/
+
 public class ThreeSum {
+   //https://leetcode.com/problems/3sum-closest/
+   int closestSum = Integer.MAX_VALUE, closestDifference = Integer.MAX_VALUE;
+    public int threeSumClosest(int[] nums, int target) {
+        if(nums.length == 3) {
+            return nums[0] + nums[1] + nums[2];
+        }
+        Arrays.sort(nums);
+        for(int firstIndex = 0; firstIndex < nums.length -2; firstIndex++){
+            int secondIndex = firstIndex + 1;
+            int thirdIndex  = nums.length - 1;
+            while(secondIndex < thirdIndex) {
+                int sum = nums[firstIndex] + nums[secondIndex] + nums[thirdIndex];
+                if(sum == target) return sum;
+                else {
+                    int closestSumDiff = Math.min(Math.abs(sum - target), Math.abs(target - sum));
+                    if(closestDifference > closestSumDiff) {
+                        closestDifference = closestSumDiff;
+                        closestSum = sum;
+                    }
+                    if(sum > target)
+                      thirdIndex--;
+                    else if(sum < target)
+                        secondIndex++;
+                }
+            }
+        }
+        return closestSum;
+    }
+   
+   //https://leetcode.com/problems/3sum/
    public List<List<Integer>> threeSum(int[] nums) {
       if (nums == null || nums.length == 0) return new LinkedList<>();
       Arrays.sort(nums); //O(nLog(n))
