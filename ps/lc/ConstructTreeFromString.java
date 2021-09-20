@@ -8,7 +8,6 @@ class ConstructTreeFromString {
         if(!s.contains("(")){
             return new TreeNode(Integer.parseInt(s));
         }
-        System.out.println(s);
         int nodeValue = Integer.parseInt(s.substring(0, s.indexOf("(")));
         TreeNode currentNode = new TreeNode(nodeValue);
         int leftEndIndex = getLeftNodeEndIndex(s, s.indexOf("("));
