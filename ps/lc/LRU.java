@@ -6,11 +6,19 @@ public class LRUCache {
 
     private Map<Integer, DoublyNode> cacheMap = null;
     private int capacity;
-    private DoublyNode head, tail;
+    private DoublyNode<Integer, Integer> head, tail;
+
+    public LRUCache() {
+        init(Integer.MAX_VALUE);
+    }
 
     public LRUCache(int capacity) {
-        this.cacheMap = new HashMap<>();
+        init(capacity);
+    }
+
+    private void init(int capacity) {
         this.capacity = capacity;
+        this.cacheMap = new HashMap<>();
         this.head = new DoublyNode();
         this.tail = new DoublyNode();
         this.head.setNextNode(this.tail);
@@ -26,7 +34,7 @@ public class LRUCache {
             DoublyNode valueNode = new DoublyNode(key, value);
             cacheMap.put(key, valueNode);
             addNodeToFront(valueNode);
-            if(cacheMap.size() > this.capacity) {
+            if (cacheMap.size() > this.capacity) {
                 int removalKey = removeLRUNode();
                 cacheMap.remove(removalKey);
             }
@@ -39,7 +47,7 @@ public class LRUCache {
         }
         DoublyNode valueNode = cacheMap.get(key);
         moveNodeToFront(valueNode);
-        return valueNode.getValue();
+        return (int) valueNode.getValue();
     }
 
     private void addNodeToFront(DoublyNode node) {
@@ -52,7 +60,7 @@ public class LRUCache {
     private int removeLRUNode() {
         DoublyNode lruNode = this.tail.getPreviousNode();
         removeNode(lruNode);
-        return lruNode.getKey();
+        return (int) lruNode.getKey();
     }
 
     private void removeNode(DoublyNode node) {
@@ -66,33 +74,33 @@ public class LRUCache {
     }
 }
 
-class DoublyNode {
-    private int key;
-    private int value;
+class DoublyNode<K, V> {
+    private K key;
+    private V value;
     private DoublyNode previousNode;
     private DoublyNode nextNode;
 
     public DoublyNode() {
     }
 
-    public DoublyNode(int key, int value) {
+    public DoublyNode(K key, V value) {
         this.key = key;
         this.value = value;
     }
 
-    public int getKey() {
+    public K getKey() {
         return key;
     }
 
-    public void setKey(int key) {
+    public void setKey(K key) {
         this.key = key;
     }
 
-    public int getValue() {
+    public V getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(V value) {
         this.value = value;
     }
 
